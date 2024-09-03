@@ -1,10 +1,16 @@
 require("config.lazy")
 
+vim.cmd[[ set clipboard+=unnamedplus ]]
 vim.opt.cmdheight = 0
 vim.opt.colorcolumn = "79"
 vim.opt.number = true
 vim.api.nvim_set_option("clipboard","unnamed")
 vim.cmd('colorscheme tokyonight')
+
+vim.opt.tabstop = 4         -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 4      -- Number of spaces to use for each step of (auto)indent
+vim.opt.expandtab = true    -- Convert tabs to spaces
+vim.opt.softtabstop = 4     -- Number of spaces a <Tab> counts for while editing
 
 vim.g.mapleader = ' '
 
