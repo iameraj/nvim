@@ -26,7 +26,7 @@ lsp_zero.extend_lspconfig({
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = {'tsserver', 'pyright', 'rust_analyzer', 'clangd'},
+    ensure_installed = {'pyright', 'rust_analyzer', 'clangd'},
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup({})

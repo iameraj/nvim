@@ -4,13 +4,27 @@ vim.cmd[[ set clipboard+=unnamedplus ]]
 vim.opt.cmdheight = 0
 vim.opt.colorcolumn = "79"
 vim.opt.number = true
-vim.api.nvim_set_option("clipboard","unnamed")
-vim.cmd('colorscheme tokyonight')
+vim.opt.relativenumber = true
+vim.opt.undofile = true
+vim.cmd('colorscheme dracula-soft')
+
+vim.diagnostic.config({
+  virtual_text = false
+})
+
+-- Show line diagnostics automatically in hover window
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+
+--vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 
 vim.opt.tabstop = 4         -- Number of spaces a tab counts for
 vim.opt.shiftwidth = 4      -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true    -- Convert tabs to spaces
 vim.opt.softtabstop = 4     -- Number of spaces a <Tab> counts for while editing
+vim.opt.wrap = false
 
 vim.g.mapleader = ' '
 
@@ -33,7 +47,8 @@ vim.keymap.set('n', '<TAB>' , vim.cmd.bNext)
 vim.keymap.set('n', '<S-TAB>' , vim.cmd.bprevious)
 vim.keymap.set('i', '<C-S>' , function() require("flash").jump() end )
 
-vim.keymap.set('n', '<leader>bd', vim.cmd.bdelete)
+vim.keymap.set('n', '<leader>q',":qa")
+vim.keymap.set('n', '<leader>w', ":wa")
 
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
 vim.keymap.set('n', '<C-U>', '<C-U>zz')

@@ -1,10 +1,11 @@
 require("tokyonight").setup {
-	transparent = true,
-	styles = {
-		keyword = { italic = false },
-		sidebars = "transparent",
-		floats = "transparent"
-	}
+	 transparent = false,
+	 styles = {
+	 	keyword = { italic = false },
+	 	sidebars = "transparent",
+	 	floats = "transparent"
+	 },
+  on_colors = function(colors) colors.bg = "#080a0f" end,
 }
 
 
