@@ -31,24 +31,6 @@ require('mason-lspconfig').setup({
         function(server_name)
             require('lspconfig')[server_name].setup({})
         end,
-        tsserver =function()
-            require('lspconfig').tsserver.setup({
-                init_options = {
-                    plugins = {
-                        {
-                            languages = {"javascript", "typescript", "vue"}
-                        }
-                    }
-                },
-                filetypes = {
-                    "javascript",
-                    "typescript",
-                    "vue",
-                }
-            })
-
-
-        end,
         clangd = function()
             require('lspconfig').clangd.setup({
                 name = 'clangd',

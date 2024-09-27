@@ -6,14 +6,15 @@ vim.opt.colorcolumn = "79"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.undofile = true
-vim.cmd('colorscheme dracula-soft')
-
-vim.diagnostic.config({
-  virtual_text = false
-})
+vim.opt.pumheight=10
+vim.cmd('colorscheme catppuccin-mocha')
+vim.opt.scrolloff = 999 
+--vim.diagnostic.config({
+--  virtual_text = false
+--})
 
 -- Show line diagnostics automatically in hover window
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+--vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 
 --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -31,14 +32,14 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', 'm' , vim.cmd.FineCmdline)
 
 vim.keymap.set('i', '(' , '()<LEFT>')
-vim.keymap.set('i', '{' , '{}<LEFT>')
 vim.keymap.set('i', '[' , '[]<LEFT>')
+vim.keymap.set('i', '{' , '{}<LEFT>')
 vim.keymap.set('i', '\"' , '""<LEFT>')
-vim.keymap.set('i', '\'' , '\'\'<LEFT>')
 
 vim.keymap.set('n', '<ESC>' , vim.cmd.nohl)
 
-vim.keymap.set('i', '<C-B>' , '{}<LEFT><CR><ESC>ko')
+vim.keymap.set('i', '{<CR>' , '{}<LEFT><CR><ESC>ko')
+
 vim.keymap.set('i', '<C-L>' , '<RIGHT>')
 vim.keymap.set('i', '<C-K>' , '<UP>')
 vim.keymap.set('i', '<C-J>' , '<DOWN>')
