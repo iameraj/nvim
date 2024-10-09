@@ -1,14 +1,14 @@
 require("config.lazy")
 
 vim.cmd[[ set clipboard+=unnamedplus ]]
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "79"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.undofile = true
 vim.opt.pumheight=10
-vim.cmd('colorscheme catppuccin-mocha')
-vim.opt.scrolloff = 999 
+vim.cmd('colorscheme retrobox')
+vim.opt.scrolloff = 10
 --vim.diagnostic.config({
 --  virtual_text = false
 --})
@@ -17,9 +17,9 @@ vim.opt.scrolloff = 999
 --vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 
---vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
---vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#000007" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000007" })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#000007" })
 
 vim.opt.tabstop = 4         -- Number of spaces a tab counts for
 vim.opt.shiftwidth = 4      -- Number of spaces to use for each step of (auto)indent
@@ -54,7 +54,7 @@ vim.keymap.set('n', '<leader>w', ":wa")
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
 vim.keymap.set('n', '<C-U>', '<C-U>zz')
 
-vim.keymap.set('n', '<leader>e', ':Lexplore<CR>' ,{ noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', ':Explore<CR>' ,{ noremap = true, silent = true })
 vim.api.nvim_set_keymap(
 	'n', '<leader>v', ':vsplit | wincmd l | :Explore<CR>', { noremap = true, silent = true }
 )

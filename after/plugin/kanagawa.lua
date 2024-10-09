@@ -9,9 +9,32 @@ require('kanagawa').setup({
     transparent = false,         -- do not set background color
     dimInactive = true ,         -- dim inactive window `:h hl-NormalNC`
     terminalColors = false,       -- define vim.g.terminal_color_{0,17}
-    colors = {                   -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    colors = {
+        palette = {
+            -- change all usages of these colors
+            sumiInk0 = "#000000",
+            fujiWhite = "#FFFFFF",
+        },
+        theme = {
+            -- change specific usages for a certain theme, or for all of them
+            wave = {
+                ui = {
+                    float = {
+                        bg = "none",
+                    },
+                },
+            },
+            dragon = {
+                syn = {
+                    parameter = "yellow",
+                },
+            },
+            all = {
+                ui = {
+                    bg_gutter = "none"
+                }
+            }
+        }
     },
     overrides = function(colors) -- add/modify highlights
         return {}

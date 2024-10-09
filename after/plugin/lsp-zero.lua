@@ -28,9 +28,6 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {'pyright', 'rust_analyzer', 'clangd'},
     handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
         clangd = function()
             require('lspconfig').clangd.setup({
                 name = 'clangd',
@@ -50,7 +47,10 @@ require('mason-lspconfig').setup({
 
 
 local cmp = require('cmp')
-local cmp_format = require('lsp-zero').cmp_format({details = true})
+local cmp_format = require('lsp-zero').cmp_format({
+    details = false,
+    max_width = 32
+})
 
 cmp.setup({
     sources = {
