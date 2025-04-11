@@ -1,4 +1,4 @@
-require("dapui").setup()
+
 
 -- Start Dapping
 vim.keymap.set('n', '<F5>', ":DapContinue<CR>")

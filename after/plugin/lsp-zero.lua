@@ -2,8 +2,7 @@ local lsp_zero = require('lsp-zero')
 
 -- lsp_attach is where you enable features that only work
 -- if there is a language server active in the file
-
-local lsp_attach = function(client, bufnr)
+local lsp_attach = function(_, bufnr)
     local opts = {buffer = bufnr}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
@@ -26,48 +25,59 @@ lsp_zero.extend_lspconfig({
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = {'pyright', 'rust_analyzer', 'clangd'},
     handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
         clangd = function()
             require('lspconfig').clangd.setup({
                 name = 'clangd',
                 cmd = {
                     'clangd',
                     '--enable-config',
-                    '--background-index',
-                    '--log=verbose'
                 },
                 initialization_options = {
                     fallback_flags = { '-std=c++17' },
                 }
             })
         end,
+        intelephense = function ()
+            require('lspconfig').intelephense.setup({
+                root_dir = function ()
+                    return vim.loop.cwd()
+                end,
+            })
+        end,
     },
 })
 
-
 local cmp = require('cmp')
 local cmp_format = require('lsp-zero').cmp_format({
-    details = false,
-    max_width = 32
+    max_width = 64
 })
 
 cmp.setup({
     sources = {
         {name = 'nvim_lsp'},
         {name = 'buffer'},
+        {name = 'path'},
+    },
+    snippet = {
+        expand = function(args)
+            -- You need Neovim v0.10 to use vim.snippet
+            vim.snippet.expand(args.body)
+        end,
     },
     preselect = 'item',
     completion = {
-        completeopt = 'menu,menuone,noinsert'
+        completeopt = 'menu,menuone'
     },
     mapping = cmp.mapping.preset.insert({
         -- confirm completion
         ['<CR>'] = cmp.mapping.confirm({select = true}),
-
         -- scroll up and down the documentation window
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-d>'] = cmp.mapping.scroll_docs(4),   
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
     }),
     window = {
         completion = cmp.config.window.bordered(),
@@ -86,5 +96,33 @@ lsp_zero.format_on_save({
     ['tsserver'] = {'javascript', 'typescript'},
     ['rust_analyzer'] = {'rust'},
     ['clangd'] = {'c', 'cpp'},
+    ['ruff'] = {'python'},
   }
 })
+
+local dap = require('dap')
+dap.adapters.lldb = {
+	type = "executable",
+	command = "/usr/bin/lldb", -- adjust as needed
+	name = "lldb",
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      local path = vim.fn.input({
+        prompt = 'Path to executable: ',
+        default = vim.fn.getcwd() .. '/',
+        completion = 'file'
+      })
+      return (path and path ~= "") and path or dap.ABORT
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+  },
+}
+dap.configurations.c = dap.configurations.cpp
