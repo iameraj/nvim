@@ -131,7 +131,7 @@ return {
     },
 
 
-    ---  lualine.lua.bak ---
+    ---  lualine.lua ---
     --[[
     {
         'nvim-lualine/lualine.nvim',

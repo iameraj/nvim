@@ -1,10 +1,7 @@
 require("config.lazy")
 
--- to make lua_ls
+-- to make lua_ls less annoying
 local vim = vim
-if vim == nil then
-    vim = {}
-end
 --------------------------------------------------------------------------------
 --| Essentials                                                               |--
 --------------------------------------------------------------------------------
@@ -104,6 +101,20 @@ vim.g.rustaceanvim = {
     },
 }
 
+function QuickDictionaryLookup()
+    local word = vim.fn.getreg('+'):gsub("%s+", "")
+    if word == "" then
+        print("Clipboard is empty or has no valid word.")
+        return
+    end
+    local output = vim.fn.system({ 'wn', word, '-synsn' })
+    vim.cmd("vnew")
+    vim.cmd("i " .. output)
+end
+
+-- Map it to something, like <leader>d
+vim.api.nvim_set_keymap('n', '<leader>pd', ':lua QuickDictionaryLookup()<CR>', { noremap = true, silent = true })
+
 --------------------------------------------------------------------------------
 --| Old timer configs that took many efforts to find                         |--
 --------------------------------------------------------------------------------
@@ -128,3 +139,4 @@ vim.g.rustaceanvim = {
 -- vim.api.nvim_set_hl(0, "Normal", { bg = transparent })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = transparent })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = transparent })
+--
